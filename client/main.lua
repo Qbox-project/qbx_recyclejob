@@ -1,4 +1,4 @@
-local QBCore = exports['qb-core']:GetCoreObject()
+local QBCore = exports['qbx-core']:GetCoreObject()
 local carryPackage = nil
 local packageCoords = nil
 local onDuty = false
@@ -73,9 +73,9 @@ local function RegisterEntranceTarget()
 
     entranceZone:onPlayerInOut(function(isPointInside)
       if isPointInside then
-        exports['qb-core']:DrawText(Lang:t("text.point_enter_warehouse"), 'left')
+        exports['qbx-core']:DrawText(Lang:t("text.point_enter_warehouse"), 'left')
       else
-        exports['qb-core']:HideText()
+        exports['qbx-core']:HideText()
       end
 
       isInsideEntranceZone = isPointInside
@@ -114,9 +114,9 @@ local function RegisterExitTarget()
 
     exitZone:onPlayerInOut(function(isPointInside)
       if isPointInside then
-        exports['qb-core']:DrawText(Lang:t("text.point_exit_warehouse"), 'left')
+        exports['qbx-core']:DrawText(Lang:t("text.point_exit_warehouse"), 'left')
       else
-        exports['qb-core']:HideText()
+        exports['qbx-core']:HideText()
       end
 
       isInsideExitZone = isPointInside
@@ -175,9 +175,9 @@ local function RegisterDutyTarget()
   
     dutyZone:onPlayerInOut(function(isPointInside)
       if isPointInside then
-        exports['qb-core']:DrawText(GetDutyTargetText(), 'left')
+        exports['qbx-core']:DrawText(GetDutyTargetText(), 'left')
       else
-        exports['qb-core']:HideText()
+        exports['qbx-core']:HideText()
       end
 
       isInsideDutyZone = isPointInside
@@ -237,9 +237,9 @@ local function RegisterDeliveyTarget()
   
     deliveryZone:onPlayerInOut(function(isPointInside)
       if isPointInside and carryPackage then
-        exports['qb-core']:DrawText(Lang:t("text.point_hand_in_package"), 'left')
+        exports['qbx-core']:DrawText(Lang:t("text.point_hand_in_package"), 'left')
       else
-        exports['qb-core']:HideText()
+        exports['qbx-core']:HideText()
       end
 
       isInsideDeliveryZone = isPointInside
@@ -418,9 +418,9 @@ function RegisterPickupTarget(coords)
 
     pickupZone:onPlayerInOut(function(isPointInside)
       if isPointInside then
-        exports['qb-core']:DrawText( Lang:t("text.point_get_package"), 'left')
+        exports['qbx-core']:DrawText( Lang:t("text.point_get_package"), 'left')
       else
-        exports['qb-core']:HideText()
+        exports['qbx-core']:HideText()
       end
 
       isInsidePickupZone = isPointInside
@@ -547,30 +547,30 @@ CreateThread(function()
       if isInsideEntranceZone then
         sleep = 0
         if IsControlJustReleased(0, 38) then
-          exports['qb-core']:KeyPressed()
+          exports['qbx-core']:KeyPressed()
           Wait(500)
           TriggerEvent('qb-recyclejob:client:target:enterLocation')
-          exports['qb-core']:HideText()
+          exports['qbx-core']:HideText()
         end
       end
       
       if isInsideExitZone then
         sleep = 0
         if IsControlJustReleased(0, 38) then
-          exports['qb-core']:KeyPressed()
+          exports['qbx-core']:KeyPressed()
           Wait(500)
           TriggerEvent('qb-recyclejob:client:target:exitLocation')
-          exports['qb-core']:HideText()
+          exports['qbx-core']:HideText()
         end
       end
 
       if isInsideDutyZone then
         sleep = 0
         if IsControlJustReleased(0, 38) then
-          exports['qb-core']:KeyPressed()
+          exports['qbx-core']:KeyPressed()
           Wait(500)
           TriggerEvent('qb-recyclejob:client:target:toggleDuty')
-          exports['qb-core']:HideText()
+          exports['qbx-core']:HideText()
         end
       end
 
@@ -578,10 +578,10 @@ CreateThread(function()
         if isInsidePickupZone and not carryPackage then
           sleep = 0
           if IsControlJustReleased(0, 38) then
-            exports['qb-core']:KeyPressed()
+            exports['qbx-core']:KeyPressed()
             Wait(500)
             TriggerEvent('qb-recyclejob:client:target:pickupPackage')
-            exports['qb-core']:HideText()
+            exports['qbx-core']:HideText()
           end
         elseif packageCoords and not carryPackage then
           sleep = 0
@@ -591,10 +591,10 @@ CreateThread(function()
         if isInsideDeliveryZone and carryPackage then
           sleep = 0
           if IsControlJustReleased(0, 38) then
-            exports['qb-core']:KeyPressed()
+            exports['qbx-core']:KeyPressed()
             Wait(500)
             TriggerEvent('qb-recyclejob:client:target:dropPackage')
-            exports['qb-core']:HideText()
+            exports['qbx-core']:HideText()
           end
         end
       end
