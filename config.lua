@@ -1,6 +1,6 @@
 Config = {
 	-- **** IMPORTANT ****
-	-- UseTarget should only be set to true when using qb-target
+	-- UseTarget should only be set to true when using ox_target
 	UseTarget = GetConvar('UseTarget', 'false') == 'true',
 
 	OutsideLocation 	= vector4(55.55, 6472.18, 31.43, 44.0),
