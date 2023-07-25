@@ -145,14 +145,14 @@ local function GetDutyTargetText()
 end
 
 local function RegisterDutyTarget()
-  local coords = vector3(Config.DutyLocation.x, Config.DutyLocation.y, Config.DutyLocation.z)
   
   if Config.UseTarget then
+    local coords = vector3(Config.DutyLocation.x, Config.DutyLocation.y, Config.DutyLocation.z - 1.5)
     dutyZone = exports['qb-target']:AddBoxZone(dutyTargetID, coords, 1, 1, {
       name = dutyTargetID,
       heading = 270,
-      minZ = Config.DutyLocation.z - 2.0,
-      maxZ = Config.DutyLocation.z + 1.0,
+      minZ = Config.DutyLocation.z - 1,
+      maxZ = Config.DutyLocation.z,
       debugPoly = false,
     }, {
       options = {
@@ -165,10 +165,11 @@ local function RegisterDutyTarget()
       distance = 1.0
     })
   else
+    local coords = vector3(Config.DutyLocation.x, Config.DutyLocation.y, Config.DutyLocation.z)
     dutyZone = BoxZone:Create(coords, 1, 1, {
       name = dutyTargetID,
       heading = 270,
-      minZ = Config.DutyLocation.z - 2.0,
+      minZ = Config.DutyLocation.z - 1.5,
       maxZ = Config.DutyLocation.z + 1.0,
       debugPoly = false
     })
@@ -184,6 +185,7 @@ local function RegisterDutyTarget()
     end)
   end
 end
+
 
 local function DestroyDutyTarget()
   if not dutyZone then
