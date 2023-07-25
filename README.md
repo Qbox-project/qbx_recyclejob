@@ -1,2 +1,2 @@
 # qbx-recyclejob
-Recycling Job For QBX-Core
+Recycling Job For QBOX Project
