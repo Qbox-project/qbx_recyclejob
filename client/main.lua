@@ -151,7 +151,7 @@ local function RegisterDutyTarget()
     dutyZone = exports['qb-target']:AddBoxZone(dutyTargetID, coords, 1, 1, {
       name = dutyTargetID,
       heading = 270,
-      minZ = Config.DutyLocation.z - 2.0,
+      minZ = Config.DutyLocation.z - 1.5,
       maxZ = Config.DutyLocation.z + 1.0,
       debugPoly = false,
     }, {
@@ -168,7 +168,7 @@ local function RegisterDutyTarget()
     dutyZone = BoxZone:Create(coords, 1, 1, {
       name = dutyTargetID,
       heading = 270,
-      minZ = Config.DutyLocation.z - 2.0,
+      minZ = Config.DutyLocation.z - 1.5,
       maxZ = Config.DutyLocation.z + 1.0,
       debugPoly = false
     })
