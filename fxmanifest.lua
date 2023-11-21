@@ -1,23 +1,29 @@
 fx_version 'cerulean'
 game 'gta5'
 
-description 'QB-RecycleJob'
+description 'qbx_recyclejob'
+repository 'https://github.com/Qbox-project/qbx_recyclejob'
 version '2.1.0'
 
-shared_scripts {
-  '@qb-core/shared/locale.lua',
-  'locales/en.lua',
-  'locales/*.lua',
-  'config.lua'
+shared_script {
+    '@ox_lib/init.lua',
+    '@qbx_core/shared/locale.lua',
+    'locales/en.lua',
+    'locales/*.lua',
 }
 
-client_script {
-  'client/main.lua',
-  '@PolyZone/client.lua',
-  '@PolyZone/BoxZone.lua',
-  '@PolyZone/CircleZone.lua'
+server_scripts {
+    'server/*',
 }
 
-server_script 'server/main.lua'
+client_scripts {
+    'client/*'
+}
+
+files {
+    'config/client.lua',
+    'config/server.lua',
+}
 
 lua54 'yes'
+use_experimental_fxv2_oal 'yes'
