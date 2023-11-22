@@ -22,7 +22,6 @@ server_script 'server/main.lua'
 
 files {
   'config/client.lua',
-  'config/server.lua',
 }
 
 lua54 'yes'
