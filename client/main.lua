@@ -1,3 +1,4 @@
+local config = require 'config.client'
 local QBCore = exports['qbx-core']:GetCoreObject()
 local carryPackage = nil
 local packageCoords = nil
@@ -32,7 +33,7 @@ local function DestroyPickupTarget()
     return
   end
   
-  if Config.UseTarget then
+  if config.useTarget then
     exports['qb-target']:RemoveZone(pickupTargetID)
     pickupZone = nil
   else
@@ -43,14 +44,14 @@ local function DestroyPickupTarget()
 end
 
 local function RegisterEntranceTarget()
-  local coords = vector3(Config.OutsideLocation.x, Config.OutsideLocation.y, Config.OutsideLocation.z)
+  local coords = vector3(config.outsideLocation.x, config.outsideLocation.y, config.outsideLocation.z)
 
-  if Config.UseTarget then
+  if config.useTarget then
     entranceZone = exports['qb-target']:AddBoxZone(entranceTargetID, coords, 1, 4, {
       name = entranceTargetID,
       heading = 44.0,
-      minZ = Config.OutsideLocation.z - 1.0,
-      maxZ = Config.OutsideLocation.z + 2.0,
+      minZ = config.outsideLocation.z - 1.0,
+      maxZ = config.outsideLocation.z + 2.0,
       debugPoly = false,
     }, {
       options = {
@@ -66,8 +67,8 @@ local function RegisterEntranceTarget()
     entranceZone = BoxZone:Create(coords, 1, 4, {
       name = entranceTargetID,
       heading = 44.0,
-      minZ = Config.OutsideLocation.z - 1.0,
-      maxZ = Config.OutsideLocation.z + 2.0,
+      minZ = config.outsideLocation.z - 1.0,
+      maxZ = config.outsideLocation.z + 2.0,
       debugPoly = false
     })
 
@@ -84,14 +85,14 @@ local function RegisterEntranceTarget()
 end
 
 local function RegisterExitTarget()
-  local coords = vector3(Config.InsideLocation.x, Config.InsideLocation.y, Config.InsideLocation.z)
+  local coords = vector3(config.insideLocation.x, config.insideLocation.y, config.insideLocation.z)
     
-  if Config.UseTarget then
+  if config.useTarget then
     exitZone = exports['qb-target']:AddBoxZone(exitTargetID, coords, 1, 4, {
       name = exitTargetID,
       heading = 270,
-      minZ = Config.InsideLocation.z - 1.0,
-      maxZ = Config.InsideLocation.z + 2.0,
+      minZ = config.insideLocation.z - 1.0,
+      maxZ = config.insideLocation.z + 2.0,
       debugPoly = false,
     }, {
       options = {
@@ -107,8 +108,8 @@ local function RegisterExitTarget()
     exitZone = BoxZone:Create(coords, 1, 4, {
       name = exitTargetID,
       heading = 270,
-      minZ = Config.InsideLocation.z - 1.0,
-      maxZ = Config.InsideLocation.z + 2.0,
+      minZ = config.insideLocation.z - 1.0,
+      maxZ = config.insideLocation.z + 2.0,
       debugPoly = false
     })
 
@@ -129,7 +130,7 @@ local function DestroyExitTarget()
     return
   end
 
-  if Config.UseTarget then
+  if config.useTarget then
     exports['qb-target']:RemoveZone(exitTargetID)
     exitZone = nil
   else
@@ -146,13 +147,13 @@ end
 
 local function RegisterDutyTarget()
   
-  if Config.UseTarget then
-    local coords = vector3(Config.DutyLocation.x, Config.DutyLocation.y, Config.DutyLocation.z - 1.5)
+  if config.useTarget then
+    local coords = vector3(config.dutyLocation.x, config.dutyLocation.y, config.dutyLocation.z - 1.5)
     dutyZone = exports['qb-target']:AddBoxZone(dutyTargetID, coords, 1, 1, {
       name = dutyTargetID,
       heading = 270,
-      minZ = Config.DutyLocation.z - 1,
-      maxZ = Config.DutyLocation.z,
+      minZ = config.dutyLocation.z - 1,
+      maxZ = config.dutyLocation.z,
       debugPoly = false,
     }, {
       options = {
@@ -165,12 +166,12 @@ local function RegisterDutyTarget()
       distance = 1.0
     })
   else
-    local coords = vector3(Config.DutyLocation.x, Config.DutyLocation.y, Config.DutyLocation.z)
+    local coords = vector3(config.dutyLocation.x, config.dutyLocation.y, config.dutyLocation.z)
     dutyZone = BoxZone:Create(coords, 1, 1, {
       name = dutyTargetID,
       heading = 270,
-      minZ = Config.DutyLocation.z - 1.5,
-      maxZ = Config.DutyLocation.z + 1.0,
+      minZ = config.dutyLocation.z - 1.5,
+      maxZ = config.dutyLocation.z + 1.0,
       debugPoly = false
     })
   
@@ -192,7 +193,7 @@ local function DestroyDutyTarget()
     return
   end
 
-  if Config.UseTarget then
+  if config.useTarget then
     exports['qb-target']:RemoveZone(dutyTargetID)
     dutyZone = nil
   else
@@ -209,14 +210,14 @@ end
 
 
 local function RegisterDeliveyTarget()
-  local coords = vector3(Config.DropLocation.x, Config.DropLocation.y, Config.DropLocation.z)
+  local coords = vector3(config.dropLocation.x, config.dropLocation.y, config.dropLocation.z)
 
-  if Config.UseTarget then
+  if config.useTarget then
     deliveryZone = exports['qb-target']:AddBoxZone(deliveryTargetID, coords, 1, 1, {
       name = deliveryTargetID,
       heading = 270,
-      minZ = Config.DropLocation.z - 2.0,
-      maxZ = Config.DropLocation.z + 1.0,
+      minZ = config.dropLocation.z - 2.0,
+      maxZ = config.dropLocation.z + 1.0,
       debugPoly = false,
     }, {
       options = {
@@ -232,8 +233,8 @@ local function RegisterDeliveyTarget()
     deliveryZone = BoxZone:Create(coords, 1, 1, {
       name = deliveryTargetID,
       heading = 270,
-      minZ = Config.DropLocation.z - 2.0,
-      maxZ = Config.DropLocation.z + 1.0,
+      minZ = config.dropLocation.z - 2.0,
+      maxZ = config.dropLocation.z + 1.0,
       debugPoly = false
     })
   
@@ -254,7 +255,7 @@ local function DestroyDeliveryTarget()
     return
   end
 
-  if Config.UseTarget then
+  if config.useTarget then
     exports['qb-target']:RemoveZone(deliveryTargetID)
     deliveryZone = nil
   else
@@ -298,7 +299,7 @@ local function ScrapAnim()
 end
 
 local function GetRandomPackage()
-  packageCoords = Config.PickupLocations[math.random(1, #Config.PickupLocations)]
+  packageCoords = config.pickupLocations[math.random(1, #config.pickupLocations)]
   RegisterPickupTarget(packageCoords)
 end
 
@@ -309,11 +310,11 @@ local function PickupPackage()
     Wait(7)
   end
   TaskPlayAnim(PlayerPedId(), 'anim@heists@box_carry@', 'idle', 5.0, -1, -1, 50, 0, false, false, false)
-  RequestModel(Config.PickupBoxModel)
-  while not HasModelLoaded(Config.PickupBoxModel) do
+  RequestModel(config.pickupBoxModel)
+  while not HasModelLoaded(config.pickupBoxModel) do
     Wait(0)
   end
-  local object = CreateObject(Config.PickupBoxModel, pos.x, pos.y, pos.z, true, true, true)
+  local object = CreateObject(config.pickupBoxModel, pos.x, pos.y, pos.z, true, true, true)
   AttachEntityToEntity(object, PlayerPedId(), GetPedBoneIndex(PlayerPedId(), 57005), 0.05, 0.1, -0.3, 300.0, 250.0, 20.0, true, true, false, true, 1, true)
   carryPackage = object
 end
@@ -326,7 +327,7 @@ local function DropPackage()
 end
 
 local function SetLocationBlip()
-  local RecycleBlip = AddBlipForCoord(Config.OutsideLocation.x, Config.OutsideLocation.y, Config.OutsideLocation.z)
+  local RecycleBlip = AddBlipForCoord(config.outsideLocation.x, config.outsideLocation.y, config.outsideLocation.z)
   SetBlipSprite(RecycleBlip, 365)
   SetBlipColour(RecycleBlip, 2)
   SetBlipScale(RecycleBlip, 0.8)
@@ -337,8 +338,8 @@ local function SetLocationBlip()
 end
 
 local function buildInteriorDesign()
-  for _, pickuploc in pairs(Config.PickupLocations) do
-    local model = GetHashKey(Config.WarehouseObjects[math.random(1, #Config.WarehouseObjects)])
+  for _, pickuploc in pairs(config.pickupLocations) do
+    local model = GetHashKey(config.warehouseObjects[math.random(1, #config.warehouseObjects)])
     RequestModel(model)
     while not HasModelLoaded(model) do
       Wait(0)
@@ -354,7 +355,7 @@ local function EnterLocation()
   while not IsScreenFadedOut() do
     Wait(10)
   end
-  SetEntityCoords(PlayerPedId(), Config.InsideLocation.x, Config.InsideLocation.y, Config.InsideLocation.z)
+  SetEntityCoords(PlayerPedId(), config.insideLocation.x, config.insideLocation.y, config.insideLocation.z)
   buildInteriorDesign()
   DoScreenFadeIn(500)
 
@@ -373,7 +374,7 @@ local function ExitLocation()
   while not IsScreenFadedOut() do
     Wait(10)
   end
-  SetEntityCoords(PlayerPedId(), Config.OutsideLocation.x, Config.OutsideLocation.y, Config.OutsideLocation.z + 1)
+  SetEntityCoords(PlayerPedId(), config.outsideLocation.x, config.outsideLocation.y, config.outsideLocation.z + 1)
   DoScreenFadeIn(500)
 
   onDuty = false
@@ -392,7 +393,7 @@ end
 function RegisterPickupTarget(coords)
   local targetCoords = vector3(coords.x, coords.y, coords.z)
 
-  if Config.UseTarget then
+  if config.useTarget then
     pickupZone = exports['qb-target']:AddBoxZone(pickupTargetID, targetCoords, 4, 1.5, {
       name = pickupTargetID,
       heading = coords.h,
@@ -431,7 +432,7 @@ function RegisterPickupTarget(coords)
 end
 
 local function DrawPackageLocationBlip()
-  if not Config.DrawPackageLocationBlip then
+  if not config.drawPackageLocationBlip then
     return
   end
 
@@ -471,11 +472,11 @@ RegisterNetEvent('qb-recyclejob:client:target:pickupPackage', function()
     return
   end
 
-  if not Config.UseTarget and not isInsidePickupZone then
+  if not config.useTarget and not isInsidePickupZone then
     return
   end
 
-  QBCore.Functions.Progressbar('pickup_reycle_package', Lang:t("text.picking_up_the_package"), Config.PickupActionDuration, false, true, {
+  QBCore.Functions.Progressbar('pickup_reycle_package', Lang:t("text.picking_up_the_package"), config.pickupActionDuration, false, true, {
       disableMovement = true,
       disableCarMovement = true,
       disableMouse = false,
@@ -494,14 +495,14 @@ RegisterNetEvent('qb-recyclejob:client:target:dropPackage', function()
     return
   end
 
-  if not Config.UseTarget and not isInsideDeliveryZone then
+  if not config.useTarget and not isInsideDeliveryZone then
     return
   end
 
   DropPackage()
   ScrapAnim()
   DestroyDeliveryTarget()
-  QBCore.Functions.Progressbar('deliver_reycle_package',  Lang:t("text.unpacking_the_package"), Config.DeliveryActionDuration, false, true, {
+  QBCore.Functions.Progressbar('deliver_reycle_package',  Lang:t("text.unpacking_the_package"), config.deliveryActionDuration, false, true, {
       disableMovement = true,
       disableCarMovement = true,
       disableMouse = false,
@@ -527,8 +528,8 @@ CreateThread(function()
   SetLocationBlip()
   RegisterEntranceTarget()
 
-  if Config.UseTarget then
-    if not Config.DrawPackageLocationBlip then
+  if config.useTarget then
+    if not config.drawPackageLocationBlip then
       return
     end
 
