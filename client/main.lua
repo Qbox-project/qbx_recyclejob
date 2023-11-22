@@ -52,7 +52,7 @@ local function RegisterEntranceTarget()
       heading = 44.0,
       minZ = config.outsideLocation.z - 1.0,
       maxZ = config.outsideLocation.z + 2.0,
-      debugPoly = false,
+      debugPoly = config.debugPoly,
     }, {
       options = {
         {
@@ -69,7 +69,7 @@ local function RegisterEntranceTarget()
       heading = 44.0,
       minZ = config.outsideLocation.z - 1.0,
       maxZ = config.outsideLocation.z + 2.0,
-      debugPoly = false
+      debugPoly = config.debugPoly
     })
 
     entranceZone:onPlayerInOut(function(isPointInside)
@@ -93,7 +93,7 @@ local function RegisterExitTarget()
       heading = 270,
       minZ = config.insideLocation.z - 1.0,
       maxZ = config.insideLocation.z + 2.0,
-      debugPoly = false,
+      debugPoly = config.debugPoly,
     }, {
       options = {
         {
@@ -110,7 +110,7 @@ local function RegisterExitTarget()
       heading = 270,
       minZ = config.insideLocation.z - 1.0,
       maxZ = config.insideLocation.z + 2.0,
-      debugPoly = false
+      debugPoly = config.debugPoly
     })
 
     exitZone:onPlayerInOut(function(isPointInside)
@@ -154,7 +154,7 @@ local function RegisterDutyTarget()
       heading = 270,
       minZ = config.dutyLocation.z - 1,
       maxZ = config.dutyLocation.z,
-      debugPoly = false,
+      debugPoly = config.debugPoly,
     }, {
       options = {
         {
@@ -172,7 +172,7 @@ local function RegisterDutyTarget()
       heading = 270,
       minZ = config.dutyLocation.z - 1.5,
       maxZ = config.dutyLocation.z + 1.0,
-      debugPoly = false
+      debugPoly = config.debugPoly
     })
   
     dutyZone:onPlayerInOut(function(isPointInside)
@@ -218,7 +218,7 @@ local function RegisterDeliveyTarget()
       heading = 270,
       minZ = config.dropLocation.z - 2.0,
       maxZ = config.dropLocation.z + 1.0,
-      debugPoly = false,
+      debugPoly = config.debugPoly,
     }, {
       options = {
         {
@@ -235,7 +235,7 @@ local function RegisterDeliveyTarget()
       heading = 270,
       minZ = config.dropLocation.z - 2.0,
       maxZ = config.dropLocation.z + 1.0,
-      debugPoly = false
+      debugPoly = config.debugPoly
     })
   
     deliveryZone:onPlayerInOut(function(isPointInside)
@@ -399,7 +399,7 @@ function RegisterPickupTarget(coords)
       heading = coords.h,
       minZ = coords.z - 1.0,
       maxZ = coords.z + 2.0,
-      debugPoly = false,
+      debugPoly = config.debugPoly,
     }, {
       options = {
         {
@@ -416,7 +416,7 @@ function RegisterPickupTarget(coords)
       heading = coords.h,
       minZ = coords.z - 1.0,
       maxZ = coords.z + 2.0,
-      debugPoly = false
+      debugPoly = config.debugPoly
     })
 
     pickupZone:onPlayerInOut(function(isPointInside)
