@@ -4,25 +4,18 @@ local packageCoords = nil
 local onDuty = false
 
 -- zone check
-
 local entranceTargetID = 'entranceTarget'
-local isInsideEntranceZone = false
-local entranceZone = nil
 
 local exitTargetID = 'exitTarget'
-local isInsideExitZone = false
 local exitZone = nil
 
 local deliveryTargetID = 'deliveryTarget'
-local isInsideDeliveryZone = false
 local deliveryZone = nil
 
 local dutyTargetID = 'dutyTarget'
-local isInsideDutyZone = false
 local dutyZone = nil
 
 local pickupTargetID = 'pickupTarget'
-local isInsidePickupZone = false
 local pickupZone = nil
 
 -- Functions
@@ -37,7 +30,6 @@ local function destroyPickupTarget()
     else
         pickupZone:remove()
         pickupZone = nil
-        isInsidePickupZone = false
     end
 end
 
@@ -45,7 +37,7 @@ local function registerEntranceTarget()
     local coords = vector3(config.outsideLocation.x, config.outsideLocation.y, config.outsideLocation.z)
 
     if config.useTarget then
-        entranceZone = exports.ox_target:addBoxZone({
+        exports.ox_target:addBoxZone({
             name = entranceTargetID,
             coords = coords,
             rotation = config.outsideLocation.w,
@@ -62,19 +54,23 @@ local function registerEntranceTarget()
             },
         })
     else
-        entranceZone = lib.zones.box({
+        lib.zones.box({
             coords = coords,
             rotation = config.outsideLocation.w,
             size = vec3(4.7, 1.7, 3.75),
             debug = config.debugPoly,
             onEnter = function()
-                isInsideEntranceZone = true
                 lib.showTextUI(Lang:t("text.point_enter_warehouse"))
             end,
             onExit = function()
-                isInsideEntranceZone = false
                 lib.hideTextUI()
             end,
+            inside = function()
+                if IsControlJustReleased(0, 38) then
+                    TriggerEvent('qbx_recyclejob:client:target:enterLocation')
+                    lib.hideTextUI()
+                end
+            end
         })
     end
 end
@@ -106,13 +102,17 @@ local function registerExitTarget()
             size = vec3(1.55, 4.95, 3.75),
             debug = config.debugPoly,
             onEnter = function()
-                isInsideExitZone = true
                 lib.showTextUI(Lang:t("text.point_exit_warehouse"))
             end,
             onExit = function()
-                isInsideExitZone = false
                 lib.hideTextUI()
             end,
+            inside = function()
+                if IsControlJustReleased(0, 38) then
+                    TriggerEvent('qbx_recyclejob:client:target:exitLocation')
+                    lib.hideTextUI()
+                end
+            end
         })
     end
 end
@@ -128,7 +128,6 @@ local function destroyExitTarget()
     else
         exitZone:remove()
         exitZone = nil
-        isInsideExitZone = false
     end
 end
 
@@ -144,6 +143,7 @@ end
 
 local function registerDutyTarget()
     local coords = vector3(config.dutyLocation.x, config.dutyLocation.y, config.dutyLocation.z)
+
     if config.useTarget then
         dutyZone = exports.ox_target:addBoxZone({
             name = dutyTargetID,
@@ -169,13 +169,17 @@ local function registerDutyTarget()
             size = vec3(1.8, 2.65, 2.0),
             debug = config.debugPoly,
             onEnter = function()
-                isInsideDutyZone = true
                 lib.showTextUI(getDutyTargetText())
             end,
             onExit = function()
-                isInsideDutyZone = false
                 lib.hideTextUI()
             end,
+            inside = function()
+                if IsControlJustReleased(0, 38) then
+                    TriggerEvent('qbx_recyclejob:client:target:toggleDuty')
+                    lib.hideTextUI()
+                end
+            end
         })
     end
 end
@@ -191,7 +195,6 @@ local function destroyDutyTarget()
     else
         dutyZone:remove()
         dutyZone = nil
-        isInsideDutyZone = false
     end
 end
 
@@ -202,6 +205,7 @@ end
 
 local function registerDeliveryTarget()
     local coords = vector3(config.dropLocation.x, config.dropLocation.y, config.dropLocation.z)
+
     if config.useTarget then
         deliveryZone = exports.ox_target:addBoxZone({
             name = deliveryTargetID,
@@ -226,13 +230,19 @@ local function registerDeliveryTarget()
             size = vec3(0.95, 1.25, 2.5),
             debug = config.debugPoly,
             onEnter = function()
-                isInsideDeliveryZone = true
                 lib.showTextUI(Lang:t("text.point_hand_in_package"))
             end,
             onExit = function()
-                isInsideDeliveryZone = false
                 lib.hideTextUI()
             end,
+            inside = function()
+                if carryPackage then
+                    if IsControlJustReleased(0, 38) then
+                        TriggerEvent('qbx_recyclejob:client:target:dropPackage')
+                        lib.hideTextUI()
+                    end
+                end
+            end
         })
     end
 end
@@ -248,7 +258,6 @@ local function destroyDeliveryTarget()
     else
         deliveryZone:remove()
         deliveryZone = nil
-        isInsideDeliveryZone = false
     end
 end
 
@@ -355,11 +364,6 @@ local function enterLocation()
     buildInteriorDesign()
     DoScreenFadeIn(500)
 
-    isInsidePickupZone = false
-    isInsideExitZone = false
-    isInsideDutyZone = false
-    isInsideEntranceZone = false
-
     destroyInsideZones()
     registerExitTarget()
     registerDutyTarget()
@@ -376,10 +380,6 @@ local function exitLocation()
     DoScreenFadeIn(500)
 
     onDuty = false
-    isInsidePickupZone = false
-    isInsideExitZone = false
-    isInsideDutyZone = false
-    isInsideEntranceZone = false
 
     destroyInsideZones()
 
@@ -415,13 +415,21 @@ function RegisterPickupTarget(coords)
             size = vec3(2.4, 2.45, 4.0),
             debug = config.debugPoly,
             onEnter = function()
-                isInsidePickupZone = true
                 lib.showTextUI(Lang:t("text.point_get_package"))
             end,
             onExit = function()
-                isInsidePickupZone = false
                 lib.hideTextUI()
             end,
+            inside = function ()
+                if onDuty then
+                    if not carryPackage then
+                        if IsControlJustReleased(0, 38) then
+                            TriggerEvent('qbx_recyclejob:client:target:pickupPackage')
+                            lib.hideTextUI()
+                        end
+                    end
+                end
+            end
         })
     end
 end
@@ -467,10 +475,6 @@ RegisterNetEvent('qbx_recyclejob:client:target:pickupPackage', function()
         return
     end
 
-    if not config.useTarget and not isInsidePickupZone then
-        return
-    end
-
     scrapAnim()
 
     if lib.progressBar({
@@ -501,10 +505,6 @@ RegisterNetEvent('qbx_recyclejob:client:target:dropPackage', function()
         return
     end
 
-    if not config.useTarget and not isInsideDeliveryZone then
-        return
-    end
-
     dropPackage()
     scrapAnim()
     destroyDeliveryTarget()
@@ -531,85 +531,17 @@ end)
 
 -- Threads
 CreateThread(function()
-    local sleep = 500
-
-    while not LocalPlayer.state.isLoggedIn do
-        Wait(sleep)
-    end
+    if not LocalPlayer.state.isLoggedIn then return end
 
     setLocationBlip()
     registerEntranceTarget()
 
-    if config.useTarget then
-        if not config.drawPackageLocationBlip then
-            return
-        end
-
-        while true do
-            sleep = 500
-
-            if onDuty and packageCoords and not carryPackage then
-                sleep = 0
-                DrawPackageLocationBlip()
-            end
-
-            Wait(sleep)
-        end
-    else
-        while true do
-            sleep = 500
-
-            if isInsideEntranceZone then
-                sleep = 0
-                if IsControlJustReleased(0, 38) then
-                    Wait(500)
-                    TriggerEvent('qbx_recyclejob:client:target:enterLocation')
-                    lib.hideTextUI()
-                end
-            end
-
-            if isInsideExitZone then
-                sleep = 0
-                if IsControlJustReleased(0, 38) then
-                    Wait(500)
-                    TriggerEvent('qbx_recyclejob:client:target:exitLocation')
-                    lib.hideTextUI()
-                end
-            end
-
-            if isInsideDutyZone then
-                sleep = 0
-                if IsControlJustReleased(0, 38) then
-                    Wait(500)
-                    TriggerEvent('qbx_recyclejob:client:target:toggleDuty')
-                    lib.hideTextUI()
-                end
-            end
-
-            if onDuty then
-                if isInsidePickupZone and not carryPackage then
-                    sleep = 0
-                    if IsControlJustReleased(0, 38) then
-                        Wait(500)
-                        TriggerEvent('qbx_recyclejob:client:target:pickupPackage')
-                        lib.hideTextUI()
-                    end
-                elseif packageCoords and not carryPackage then
-                    sleep = 0
-                    DrawPackageLocationBlip()
-                end
-
-                if isInsideDeliveryZone and carryPackage then
-                    sleep = 0
-                    if IsControlJustReleased(0, 38) then
-                        Wait(500)
-                        TriggerEvent('qbx_recyclejob:client:target:dropPackage')
-                        lib.hideTextUI()
-                    end
-                end
-            end
-
-            Wait(sleep)
+    while true do
+        if onDuty and packageCoords and not carryPackage and config.drawPackageLocationBlip then
+            DrawPackageLocationBlip()
+            Wait(0)
+        else
+            Wait(500)
         end
     end
 end)
