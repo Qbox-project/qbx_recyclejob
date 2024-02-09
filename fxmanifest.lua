@@ -4,12 +4,11 @@ game 'gta5'
 description 'qbx_recyclejob'
 repository 'https://github.com/Qbox-project/qbx_recyclejob'
 version '2.1.0'
+ox_lib 'locale'
 
-shared_script {
+shared_scripts {
     '@ox_lib/init.lua',
-    '@qbx_core/shared/locale.lua',
-    'locales/en.lua',
-    'locales/*.lua',
+   '@qbx_core/modules/lib.lua',
 }
 
 server_scripts {
@@ -22,7 +21,7 @@ client_scripts {
 
 files {
   'config/client.lua',
+  'locales/*.json',
 }
-
 lua54 'yes'
 use_experimental_fxv2_oal 'yes'
