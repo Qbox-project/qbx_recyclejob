@@ -268,8 +268,6 @@ local function destroyInsideZones()
     destroyDeliveryTarget()
 end
 
-
-
 local function scrapAnim()
     local time = 5
  
