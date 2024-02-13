@@ -48,7 +48,7 @@ local function registerEntranceTarget()
                     icon = 'fa-solid fa-house',
                     type = 'client',
                     event = 'qbx_recyclejob:client:target:enterLocation',
-                    label = Lang:t("text.enter_warehouse"),
+                    label = locale("text.enter_warehouse"),
                     distance = 1
                 },
             },
@@ -60,7 +60,7 @@ local function registerEntranceTarget()
             size = vec3(4.7, 1.7, 3.75),
             debug = config.debugPoly,
             onEnter = function()
-                lib.showTextUI(Lang:t("text.point_enter_warehouse"))
+                lib.showTextUI(locale("text.point_enter_warehouse"))
             end,
             onExit = function()
                 lib.hideTextUI()
@@ -90,7 +90,7 @@ local function registerExitTarget()
                     icon = 'fa-solid fa-house',
                     type = 'client',
                     event = 'qbx_recyclejob:client:target:exitLocation',
-                    label = Lang:t("text.exit_warehouse"),
+                    label = locale("text.exit_warehouse"),
                     distance = 1
                 },
             },
@@ -102,7 +102,7 @@ local function registerExitTarget()
             size = vec3(1.55, 4.95, 3.75),
             debug = config.debugPoly,
             onEnter = function()
-                lib.showTextUI(Lang:t("text.point_exit_warehouse"))
+                lib.showTextUI(locale("text.point_exit_warehouse"))
             end,
             onExit = function()
                 lib.hideTextUI()
@@ -133,10 +133,10 @@ end
 
 local function getDutyTargetText()
     if config.useTarget then
-        local text = onDuty and Lang:t("text.clock_out") or Lang:t("text.clock_in")
+        local text = onDuty and locale("text.clock_out") or locale("text.clock_in")
         return text
     else
-        local text = onDuty and Lang:t("text.point_clock_out") or Lang:t("text.point_clock_in")
+        local text = onDuty and locale("text.point_clock_out") or locale("text.point_clock_in")
         return text
     end
 end
@@ -218,7 +218,7 @@ local function registerDeliveryTarget()
                     icon = 'fa-solid fa-house',
                     type = 'client',
                     event = 'qbx_recyclejob:client:target:dropPackage',
-                    label = Lang:t("text.hand_in_package"),
+                    label = locale("text.hand_in_package"),
                     distance = 1
                 },
             },
@@ -230,7 +230,7 @@ local function registerDeliveryTarget()
             size = vec3(0.95, 1.25, 2.5),
             debug = config.debugPoly,
             onEnter = function()
-                lib.showTextUI(Lang:t("text.point_hand_in_package"))
+                lib.showTextUI(locale("text.point_hand_in_package"))
             end,
             onExit = function()
                 lib.hideTextUI()
@@ -268,16 +268,10 @@ local function destroyInsideZones()
     destroyDeliveryTarget()
 end
 
-local function loadAnimDict(dict)
-    while (not HasAnimDictLoaded(dict)) do
-        RequestAnimDict(dict)
-        Wait(5)
-    end
-end
-
 local function scrapAnim()
     local time = 5
-    loadAnimDict('mp_car_bomb')
+ 
+    lib.requestAnimDict('mp_car_bomb')
     TaskPlayAnim(cache.ped, 'mp_car_bomb', 'car_bomb_mechanic', 3.0, 3.0, -1, 16, 0, false, false, false)
     local openingDoor = true
 
@@ -403,7 +397,7 @@ function RegisterPickupTarget(coords)
                     icon = 'fa-solid fa-house',
                     type = 'client',
                     event = 'qbx_recyclejob:client:target:pickupPackage',
-                    label = Lang:t("text.get_package"),
+                    label = locale("text.get_package"),
                     distance = 1
                 },
             },
@@ -415,7 +409,7 @@ function RegisterPickupTarget(coords)
             size = vec3(2.4, 2.45, 4.0),
             debug = config.debugPoly,
             onEnter = function()
-                lib.showTextUI(Lang:t("text.point_get_package"))
+                lib.showTextUI(locale("text.point_get_package"))
             end,
             onExit = function()
                 lib.hideTextUI()
@@ -455,10 +449,10 @@ RegisterNetEvent('qbx_recyclejob:client:target:toggleDuty', function()
     onDuty = not onDuty
 
     if onDuty then
-        exports.qbx_core:Notify(Lang:t("success.you_have_been_clocked_in"), 'success')
+        exports.qbx_core:Notify(locale("success.you_have_been_clocked_in"), 'success')
         getRandomPackage()
     else
-        exports.qbx_core:Notify(Lang:t("error.you_have_clocked_out"), 'error')
+        exports.qbx_core:Notify(locale("error.you_have_clocked_out"), 'error')
         destroyPickupTarget()
     end
 
@@ -479,7 +473,7 @@ RegisterNetEvent('qbx_recyclejob:client:target:pickupPackage', function()
 
     if lib.progressBar({
         duration = config.pickupActionDuration,
-        label = Lang:t("text.picking_up_the_package"),
+        label = locale("text.picking_up_the_package"),
         useWhileDead = false,
         canCancel = true,
         disable = {
@@ -496,7 +490,7 @@ RegisterNetEvent('qbx_recyclejob:client:target:pickupPackage', function()
         destroyPickupTarget()
         registerDeliveryTarget()
     else
-        exports.qbx_core:Notify(Lang:t('error.canceled'), 'error')
+        exports.qbx_core:Notify(locale('error.canceled'), 'error')
     end
 end)
 
@@ -511,7 +505,7 @@ RegisterNetEvent('qbx_recyclejob:client:target:dropPackage', function()
 
     if lib.progressBar({
         duration = config.deliveryActionDuration,
-        label = Lang:t("text.unpacking_the_package"),
+        label = locale("text.unpacking_the_package"),
         useWhileDead = false,
         canCancel = true,
         disable = {
@@ -525,7 +519,7 @@ RegisterNetEvent('qbx_recyclejob:client:target:dropPackage', function()
         TriggerServerEvent('qbx_recycle:server:getItem')
         getRandomPackage()
     else
-        exports.qbx_core:Notify(Lang:t('error.canceled'), 'error')
+        exports.qbx_core:Notify(locale('error.canceled'), 'error')
     end
 end)
 
