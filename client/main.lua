@@ -2,6 +2,7 @@ local config = require 'config.client'
 local carryPackage = nil
 local packageCoords = nil
 local onDuty = false
+local playerLoaded = false
 
 -- zone check
 local entranceTargetID = 'entranceTarget'
@@ -17,6 +18,8 @@ local dutyZone = nil
 
 local pickupTargetID = 'pickupTarget'
 local pickupZone = nil
+
+local RecycleBlip = nil
 
 -- Functions
 local function destroyPickupTarget()
@@ -322,7 +325,7 @@ local function dropPackage()
 end
 
 local function setLocationBlip()
-    local RecycleBlip = AddBlipForCoord(config.outsideLocation.x, config.outsideLocation.y, config.outsideLocation.z)
+    RecycleBlip = AddBlipForCoord(config.outsideLocation.x, config.outsideLocation.y, config.outsideLocation.z)
     SetBlipSprite(RecycleBlip, 365)
     SetBlipColour(RecycleBlip, 2)
     SetBlipScale(RecycleBlip, 0.8)
@@ -523,10 +526,8 @@ RegisterNetEvent('qbx_recyclejob:client:target:dropPackage', function()
     end
 end)
 
--- Threads
-CreateThread(function()
-    if not LocalPlayer.state.isLoggedIn then return end
-
+local function init()
+    playerLoaded = true
     setLocationBlip()
     registerEntranceTarget()
 
@@ -537,5 +538,22 @@ CreateThread(function()
         else
             Wait(500)
         end
+        if not playerLoaded then break end
     end
+end
+
+AddEventHandler('onResourceStart', function(resource)
+	if resource ~= GetCurrentResourceName() then return end
+    if not LocalPlayer.state.isLoggedIn then return end
+    init()
+end)
+
+AddEventHandler('QBCore:Client:OnPlayerLoaded', function()
+    init()
+end)
+
+AddEventHandler('QBCore:Client:OnPlayerUnload', function()
+    playerLoaded = false
+    RemoveBlip(RecycleBlip)
+    exports.ox_target:removeBoxZone(entranceTargetID)
 end)
