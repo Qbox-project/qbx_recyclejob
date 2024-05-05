@@ -1,0 +1,24 @@
+{
+  "success": {
+      "you_have_been_clocked_in": "Estás agora de serviço"
+  },
+  "text": {
+      "point_enter_warehouse": "[E] - Entrar no Armazém",
+      "enter_warehouse": "Entrar no Armazém",
+      "exit_warehouse": "Sair do Armazém",
+      "point_exit_warehouse": "[E] - Sair do Armazém",
+      "clock_out": "Sair de Serviço",
+      "point_clock_out": "[E] - Sair de Serviço",
+      "clock_in": "Entrar de Serviço",
+      "point_clock_in": "[E] - Entrar de Serviço",
+      "hand_in_package": "Entregar Pacote",
+      "point_hand_in_package": "[E] - Entregar Pacote",
+      "get_package": "Pegar Pacote",
+      "point_get_package": "[E] - Pegar Pacote",
+      "picking_up_the_package": "A pegar o pacote",
+      "unpacking_the_package": "A desempacotar o pacote"
+  },
+  "error": {
+      "you_have_clocked_out": "Saíste de Serviço"
+  }
+}
