@@ -538,8 +538,10 @@ local function startPackageBlipDraw()
 end
 
 AddStateBagChangeHandler('isLoggedIn', ('player:%s'):format(cache.serverId), function(_, _, loginState)
-    isLoggedIn = loginState
-    if isLoggedIn then startPackageBlipDraw() end
+    if not isLoggedIn then
+        isLoggedIn = loginState
+        startPackageBlipDraw()
+    end
 end)
 
 CreateThread(function()
