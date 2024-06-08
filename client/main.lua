@@ -270,7 +270,7 @@ end
 
 local function scrapAnim()
     local time = 5
- 
+
     lib.requestAnimDict('mp_car_bomb')
     TaskPlayAnim(cache.ped, 'mp_car_bomb', 'car_bomb_mechanic', 3.0, 3.0, -1, 16, 0, false, false, false)
     local openingDoor = true
