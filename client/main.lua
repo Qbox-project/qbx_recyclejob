@@ -523,19 +523,20 @@ RegisterNetEvent('qbx_recyclejob:client:target:dropPackage', function()
     end
 end)
 
--- Threads
-CreateThread(function()
-    if not LocalPlayer.state.isLoggedIn then return end
+AddEventHandler('QBCore:Client:OnPlayerLoaded', function()
+    CreateThread(function()
+        while LocalPlayer.state.isLoggedIn do
+            if onDuty and packageCoords and not carryPackage and config.drawPackageLocationBlip then
+                DrawPackageLocationBlip()
+                Wait(0)
+            else
+                Wait(500)
+            end
+        end
+    end)
+end)
 
+CreateThread(function()
     setLocationBlip()
     registerEntranceTarget()
-
-    while true do
-        if onDuty and packageCoords and not carryPackage and config.drawPackageLocationBlip then
-            DrawPackageLocationBlip()
-            Wait(0)
-        else
-            Wait(500)
-        end
-    end
 end)
