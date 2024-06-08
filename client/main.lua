@@ -1,4 +1,5 @@
 local config = require 'config.client'
+local isLoggedIn = false
 local carryPackage = nil
 local packageCoords = nil
 local onDuty = false
@@ -523,19 +524,26 @@ RegisterNetEvent('qbx_recyclejob:client:target:dropPackage', function()
     end
 end)
 
--- Threads
-CreateThread(function()
-    if not LocalPlayer.state.isLoggedIn then return end
+local function startPackageBlipDraw()
+    CreateThread(function()
+        while isLoggedIn do
+            if onDuty and packageCoords and not carryPackage and config.drawPackageLocationBlip then
+                DrawPackageLocationBlip()
+                Wait(0)
+            else
+                Wait(500)
+            end
+        end
+    end)
+end
 
+AddStateBagChangeHandler('isLoggedIn', ('player:%s'):format(cache.serverId), function(_, _, loginState)
+    if isLoggedIn == loginState then return end
+    isLoggedIn = loginState
+    startPackageBlipDraw()
+end)
+
+CreateThread(function()
     setLocationBlip()
     registerEntranceTarget()
-
-    while true do
-        if onDuty and packageCoords and not carryPackage and config.drawPackageLocationBlip then
-            DrawPackageLocationBlip()
-            Wait(0)
-        else
-            Wait(500)
-        end
-    end
 end)
