@@ -272,13 +272,12 @@ end
 local function scrapAnim()
     local time = 5
 
-    lib.requestAnimDict('mp_car_bomb')
-    TaskPlayAnim(cache.ped, 'mp_car_bomb', 'car_bomb_mechanic', 3.0, 3.0, -1, 16, 0, false, false, false)
+    lib.playAnim(cache.ped, 'mp_car_bomb', 'car_bomb_mechanic', 3.0, 3.0, -1, 16, 0, false, false, false)
     local openingDoor = true
 
     CreateThread(function()
         while openingDoor do
-            TaskPlayAnim(cache.ped, 'mp_car_bomb', 'car_bomb_mechanic', 3.0, 3.0, -1, 16, 0, 0, 0, 0)
+            lib.playAnim(cache.ped, 'mp_car_bomb', 'car_bomb_mechanic', 3.0, 3.0, -1, 16, 0, false, false, false)
             Wait(1000)
             time = time - 1
             if time <= 0 then
@@ -297,20 +296,10 @@ end
 local function pickupPackage()
     local pos = GetEntityCoords(cache.ped, true)
     local boxModel = config.pickupBoxModel
-    lib.requestModel(boxModel)
-    RequestAnimDict('anim@heists@box_carry@')
-
-    while not HasAnimDictLoaded('anim@heists@box_carry@') do
-        Wait(7)
-    end
-
-    TaskPlayAnim(cache.ped, 'anim@heists@box_carry@', 'idle', 5.0, -1, -1, 50, 0, false, false, false)
-
-    while not HasModelLoaded(boxModel) do
-        Wait(0)
-    end
-
+    lib.requestModel(boxModel, 5000)
+    lib.playAnim(cache.ped, 'anim@heists@box_carry@', 'idle', 5.0, -1, -1, 50, 0, false, false, false)
     local object = CreateObject(boxModel, pos.x, pos.y, pos.z, true, true, true)
+    SetModelAsNoLongerNeeded(boxModel)
     AttachEntityToEntity(object, cache.ped, GetPedBoneIndex(cache.ped, 57005), 0.05, 0.1, -0.3, 300.0, 250.0, 20.0, true, true, false, true, 1, true)
     carryPackage = object
 end
@@ -336,13 +325,9 @@ end
 local function buildInteriorDesign()
     for _, pickuploc in pairs(config.pickupLocations) do
         local model = GetHashKey(config.warehouseObjects[math.random(1, #config.warehouseObjects)])
-        lib.requestModel(model)
-
-        while not HasModelLoaded(model) do
-            Wait(0)
-        end
-
+        lib.requestModel(model, 5000)
         local obj = CreateObject(model, pickuploc.x, pickuploc.y, pickuploc.z, false, true, true)
+        SetModelAsNoLongerNeeded(model)
         PlaceObjectOnGroundProperly(obj)
         FreezeEntityPosition(obj, true)
     end
