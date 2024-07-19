@@ -1,0 +1,24 @@
+{
+    "success": {
+        "you_have_been_clocked_in": "Du er blevet registreret"
+    },
+    "text": {
+        "point_enter_warehouse": "[E] - Gå ind i lageret",
+        "enter_warehouse": "Gå ind i lageret",
+        "exit_warehouse": "Forlad lageret",
+        "point_exit_warehouse": "[E] - Forlad lageret",
+        "clock_out": "Afslut arbejde",
+        "point_clock_out": "[E] - Afslut arbejde",
+        "clock_in": "Start arbejde",
+        "point_clock_in": "[E] - Start arbejde",
+        "hand_in_package": "Aflevér pakke",
+        "point_hand_in_package": "[E] - Aflevér pakke",
+        "get_package": "Hent pakke",
+        "point_get_package": "[E] - Hent pakke",
+        "picking_up_the_package": "Henter pakken",
+        "unpacking_the_package": "Pakker pakken ud"
+    },
+    "error": {
+        "you_have_clocked_out": "Du har afsluttet arbejdet"
+    }
+}
