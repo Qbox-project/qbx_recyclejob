@@ -19,7 +19,8 @@
       "unpacking_the_package": "Unpacking the package"
     },
     "error": {
-      "you_have_clocked_out": "You Have Clocked Out"
+      "you_have_clocked_out": "You Have Clocked Out",
+      "overweight_check": "You Cannot Carry Anymore Items"
     }
   }
   
