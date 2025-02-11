@@ -10,7 +10,7 @@ RegisterNetEvent('qbx_recycle:server:getItem', function()
             exports.ox_inventory:AddItem(src, randItem, amount)
             Wait(500)
         else
-            exports.qbx_core:Notify(source, locale('overweight_check'), 'error')
+            exports.qbx_core:Notify(source, locale('error.overweight_check'), 'error')
         end
     end
 
@@ -19,7 +19,7 @@ RegisterNetEvent('qbx_recycle:server:getItem', function()
         if exports.ox_inventory:CanCarryItem(src, config.chanceItem, 1) then
             exports.ox_inventory:AddItem(src, config.chanceItem, 1)
         else
-            exports.qbx_core:Notify(source, locale('overweight_check'), 'error')
+            exports.qbx_core:Notify(source, locale('error.overweight_check'), 'error')
         end
     end
 
@@ -30,7 +30,7 @@ RegisterNetEvent('qbx_recycle:server:getItem', function()
         if exports.ox_inventory:CanCarryItem(src, config.luckyItem, random) then
             exports.ox_inventory:AddItem(src, config.luckyItem, random)
         else
-            exports.qbx_core:Notify(source, locale('overweight_check'), 'error')
+            exports.qbx_core:Notify(source, locale('error.overweight_check'), 'error')
         end
     end
 end)
