@@ -19,6 +19,7 @@
     "unpacking_the_package": "Paket wird ausgepackt"
   },
   "error": {
-    "you_have_clocked_out": "Du hast dich ausgestempelt"
+    "you_have_clocked_out": "Du hast dich ausgestempelt",
+    "overweight_check": "Du kannst keine weiteren Gegenstände mehr tragen"
   }
 }
