@@ -1,0 +1,25 @@
+{
+  "success": {
+    "you_have_been_clocked_in": "Rozpoczęto pracę"
+  },
+  "text": {
+    "point_enter_warehouse": "[E] - Wejdź do magazynu",
+    "enter_warehouse": "Wejdź do magazynu",
+    "exit_warehouse": "Wyjdź z magazynu",
+    "point_exit_warehouse": "[E] - Wyjdź z magazynu",
+    "clock_out": "Zakończ pracę",
+    "point_clock_out": "[E] - Zakończ pracę",
+    "clock_in": "Rozpocznij pracę",
+    "point_clock_in": "[E] - Rozpocznij pracę",
+    "hand_in_package": "Zdeponuj paczkę",
+    "point_hand_in_package": "[E] - Zdeponuj paczkę",
+    "get_package": "Odbierz paczkę",
+    "point_get_package": "[E] - Odbierz paczkę",
+    "picking_up_the_package": "Podnoszenie paczki",
+    "unpacking_the_package": "Rozpakowywanie paczki"
+  },
+  "error": {
+    "you_have_clocked_out": "Zakończono pracę",
+    "overweight_check": "Nie można unieść więcej przedmiotów"
+  }
+}
