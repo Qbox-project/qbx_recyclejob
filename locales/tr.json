@@ -1,0 +1,25 @@
+{
+  "success": {
+    "you_have_been_clocked_in": "Mesaiye Başladın"
+  },
+  "text": {
+    "point_enter_warehouse": "[E] - Depoya Gir",
+    "enter_warehouse": "Depoya Gir",
+    "exit_warehouse": "Depodan Çık",
+    "point_exit_warehouse": "[E] - Depodan Çık",
+    "clock_out": "Mesaiden Çık",
+    "point_clock_out": "[E] - Mesaiden Çık",
+    "clock_in": "Mesaiye Gir",
+    "point_clock_in": "[E] - Mesaiye Gir",
+    "hand_in_package": "Paketi Teslim Et",
+    "point_hand_in_package": "[E] - Paketi Teslim Et",
+    "get_package": "Paket Al",
+    "point_get_package": "[E] - Paket Al",
+    "picking_up_the_package": "Paket alınıyor",
+    "unpacking_the_package": "Paket açılıyor"
+  },
+  "error": {
+    "you_have_clocked_out": "Zaten mesaiyi bitirdin",
+    "overweight_check": "Artık daha fazla eşya taşıyamazsın"
+  }
+}
