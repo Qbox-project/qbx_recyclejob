@@ -521,7 +521,7 @@ end)
 local function startPackageBlipDraw()
     CreateThread(function()
         while isLoggedIn do
-            if onDuty and config.drawDropLocationBlip and carryPackage then
+            if config.drawDropLocationBlip and onDuty and carryPackage then
                 DrawDropLocationBlip()
                 Wait(0)
             elseif onDuty and packageCoords and not carryPackage and config.drawPackageLocationBlip then
