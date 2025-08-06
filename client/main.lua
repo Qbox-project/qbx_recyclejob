@@ -426,7 +426,7 @@ local function DrawDropLocationBlip()
     if not config.drawDropLocationBlip then
         return
     end
-    DrawMarker(2, config.dropLocation.x, config.dropLocation.y, config.dropLocation.z + 1, 0, 0, 0, 180.0, 0, 0, 0.5, 0.5, 0.5, 0, 255, 0, 100, false, false, 2, true, nil, nil, false)
+    DrawMarker(2, dropCoords.x, dropCoords.y, dropCoords.z + 1, 0, 0, 0, 180.0, 0, 0, 0.5, 0.5, 0.5, 0, 255, 0, 100, false, false, 2, true, nil, nil, false)
 end
 
 -- Events
