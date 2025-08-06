@@ -524,7 +524,7 @@ local function startPackageBlipDraw()
             if config.drawDropLocationBlip and onDuty and carryPackage then
                 DrawDropLocationBlip()
                 Wait(0)
-            elseif onDuty and packageCoords and not carryPackage and config.drawPackageLocationBlip then
+            elseif config.drawPackageLocationBlip and onDuty and packageCoords and not carryPackage then
                 DrawPackageLocationBlip()
                 Wait(0)
             else
