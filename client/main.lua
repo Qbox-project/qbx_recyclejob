@@ -422,6 +422,13 @@ local function DrawPackageLocationBlip()
     DrawMarker(2, packageCoords.x, packageCoords.y, packageCoords.z + 3, 0, 0, 0, 180.0, 0, 0, 0.5, 0.5, 0.5, 255, 255, 0, 100, false, false, 2, true, nil, nil, false)
 end
 
+local function DrawDropLocationBlip()
+    if not config.drawDropLocationBlip then
+        return
+    end
+    DrawMarker(2, config.dropLocation.x, config.dropLocation.y, config.dropLocation.z + 1, 0, 0, 0, 180.0, 0, 0, 0.5, 0.5, 0.5, 0, 255, 0, 100, false, false, 2, true, nil, nil, false)
+end
+
 -- Events
 RegisterNetEvent('qbx_recyclejob:client:target:enterLocation', function()
     enterLocation()
@@ -512,7 +519,10 @@ end)
 local function startPackageBlipDraw()
     CreateThread(function()
         while isLoggedIn do
-            if onDuty and packageCoords and not carryPackage and config.drawPackageLocationBlip then
+            if onDuty and config.drawDropLocationBlip and carryPackage then
+                DrawDropLocationBlip()
+                Wait(0)
+            elseif onDuty and packageCoords and not carryPackage and config.drawPackageLocationBlip then
                 DrawPackageLocationBlip()
                 Wait(0)
             else
