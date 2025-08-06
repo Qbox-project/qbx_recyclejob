@@ -422,11 +422,13 @@ local function DrawPackageLocationBlip()
     DrawMarker(2, packageCoords.x, packageCoords.y, packageCoords.z + 3, 0, 0, 0, 180.0, 0, 0, 0.5, 0.5, 0.5, 255, 255, 0, 100, false, false, 2, true, nil, nil, false)
 end
 
-local function DrawDropLocationBlip()
-    if not config.drawDropLocationBlip then
+local function DrawDeliveryLocationBlip()
+    if not config.drawDeliveryLocationBlip then
         return
     end
-    DrawMarker(2, dropCoords.x, dropCoords.y, dropCoords.z + 1, 0, 0, 0, 180.0, 0, 0, 0.5, 0.5, 0.5, 0, 255, 0, 100, false, false, 2, true, nil, nil, false)
+
+    local dropCoords = config.dropLocation
+    DrawMarker(2, dropCoords.x, dropCoords.y, dropCoords.z + 1, 0, 0, 0, 180.0, 0, 0, 0.5, 0.5, 0.5, 255, 255, 0, 100, false, false, 2, true, nil, nil, false)
 end
 
 -- Events
