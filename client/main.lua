@@ -423,7 +423,7 @@ local function DrawPackageLocationBlip()
 end
 
 local function DrawDropLocationBlip()
-    if not config.drawDrawDropLocationBlip then
+    if not config.DrawDropLocationBlip then
         return
     end
 
