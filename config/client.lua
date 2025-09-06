@@ -8,6 +8,7 @@ return {
     dropLocation 		= vector4(1048.224, -3097.071, -38.999, 274.810),
 
     drawPackageLocationBlip = true,
+    drawDropLocationBlip = true,
 
     pickupActionDuration 	= math.random(4000, 6000),
     deliveryActionDuration 	= 5000,
