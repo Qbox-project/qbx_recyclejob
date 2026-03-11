@@ -1,0 +1,25 @@
+{
+  "success": {
+    "you_have_been_clocked_in": "出勤しました"
+  },
+  "text": {
+    "point_enter_warehouse": "[E] - 倉庫に入る",
+    "enter_warehouse": "倉庫に入る",
+    "exit_warehouse": "倉庫を出る",
+    "point_exit_warehouse": "[E] - 倉庫を出る",
+    "clock_out": "退勤",
+    "point_clock_out": "[E] - 退勤",
+    "clock_in": "出勤",
+    "point_clock_in": "[E] - 出勤",
+    "hand_in_package": "荷物を渡す",
+    "point_hand_in_package": "[E] - 荷物を渡す",
+    "get_package": "荷物を受け取る",
+    "point_get_package": "[E] - 荷物を受け取る",
+    "picking_up_the_package": "荷物を拾っています",
+    "unpacking_the_package": "荷物を開封しています"
+  },
+  "error": {
+    "you_have_clocked_out": "退勤しました",
+    "overweight_check": "これ以上アイテムを持てません"
+  }
+}
