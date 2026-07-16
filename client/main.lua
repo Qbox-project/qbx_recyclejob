@@ -288,8 +288,8 @@ local function scrapAnim()
     end)
 end
 
-local function getRandomPackage()
-    packageCoords = config.pickupLocations[math.random(1, #config.pickupLocations)]
+local function getNextPackage(coords)
+    packageCoords = coords
     RegisterPickupTarget(packageCoords)
 end
 
@@ -444,9 +444,15 @@ RegisterNetEvent('qbx_recyclejob:client:target:toggleDuty', function()
     onDuty = not onDuty
 
     if onDuty then
+        local nextPackage = lib.callback.await('qbx_recyclejob:server:startShift', false)
+        if not nextPackage then
+            onDuty = false
+            return
+        end
         exports.qbx_core:Notify(locale("success.you_have_been_clocked_in"), 'success')
-        getRandomPackage()
+        getNextPackage(nextPackage)
     else
+        TriggerServerEvent('qbx_recyclejob:server:endShift')
         exports.qbx_core:Notify(locale("error.you_have_clocked_out"), 'error')
         destroyPickupTarget()
     end
@@ -478,6 +484,7 @@ RegisterNetEvent('qbx_recyclejob:client:target:pickupPackage', function()
             combat = true
         },
     }) then
+        if not lib.callback.await('qbx_recyclejob:server:pickupPackage', false) then return end
         packageCoords = nil
         StopAnimTask(cache.ped, 'mp_car_bomb', 'car_bomb_mechanic', 1.0)
         ClearPedTasks(cache.ped)
@@ -511,8 +518,8 @@ RegisterNetEvent('qbx_recyclejob:client:target:dropPackage', function()
         },
     }) then
         StopAnimTask(cache.ped, 'mp_car_bomb', 'car_bomb_mechanic', 1.0)
-        TriggerServerEvent('qbx_recycle:server:getItem')
-        getRandomPackage()
+        local nextPackage = lib.callback.await('qbx_recyclejob:server:deliverPackage', false)
+        if nextPackage then getNextPackage(nextPackage) end
     else
         exports.qbx_core:Notify(locale('error.canceled'), 'error')
     end
