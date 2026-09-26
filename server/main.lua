@@ -75,10 +75,11 @@ lib.callback.register('qbx_recyclejob:server:deliverPackage', function(source)
         return
     end
 
-    giveRewards(source)
-    session.pickupIndex = math.random(1, #clientConfig.pickupLocations)
     session.carrying = false
     session.pickupTime = nil
+    giveRewards(source)
+    if workSessions[source] ~= session then return end
+    session.pickupIndex = math.random(1, #clientConfig.pickupLocations)
     return clientConfig.pickupLocations[session.pickupIndex]
 end)
 
